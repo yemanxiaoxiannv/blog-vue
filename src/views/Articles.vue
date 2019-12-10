@@ -1,14 +1,10 @@
+<!DOCTYPE html>
+<html>
 <template>
 	<div class="row">
-		<h3>文章</h3>
-		<!-- <div v-for="(item, index) in articles" :key="index" class="col-12">
+		<div v-for="(item, index) in articles" :key="index" class="col-6">
 			<div class="media-wraaper bg shadow">
-				<div class="media-left">
-					<img :src="item.author.avatar" class="avatar-lg link" />
-					<p>{{ item.author.nickname }}</p>
-					<strong>来自</strong>
-					<p>{{ item.topic.topicName }}</p>
-				</div>
+				
 				<div class="media-middle flex flex-left">
 					<router-link :to="{ path: '/article/' + item.article.id }">
 						<p>
@@ -26,7 +22,7 @@
 			</div>
 		</div>
 
-		<div class="col-12"><button class="btn btn-lg warning-fill" @click="loadMore">点击加载更多</button></div> -->
+		<div class="col-12"><button class="btn btn-lg warning-fill" @click="loadMore">点击加载更多</button></div>
 	</div>
 </template>
 
@@ -78,8 +74,12 @@ export default {
 
 <style scoped="scoped">
 .bg {
-	background-image: url(../assets/img/article.png);
+	
 	background-size: contain;
 	background-position-y: 100px;
 }
 </style>
+
+	<body>
+	</body>
+</html>

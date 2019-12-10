@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import Tab1 from '@/views/Tab1.vue'
+import Tab2 from '@/views/Tab2.vue'
+
 import Nav from '@/views/Nav.vue'
 import SignIn from '@/views/SignIn.vue'
 import SignUp from '@/views/SignUp.vue'
@@ -33,7 +36,21 @@ const routes = [{
 			},
 			{
 				path: 'index',
-				component: Index
+				component: Index,
+				children:[{
+					path:'/',
+					redirect:'tab1'
+				},
+				{
+					path:'tab1',
+					component:Tab1
+				},
+				{
+					path:'tab2',
+					component:Tab2
+				},
+				]
+				
 			},
 			{
 				path: 'articles',
