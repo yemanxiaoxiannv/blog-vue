@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html>
+
 <template>
 	<div class="row">
 		<div v-for="(item, index) in articles" :key="index" class="col-6">
@@ -79,7 +78,3 @@ export default {
 	background-position-y: 100px;
 }
 </style>
-
-	<body>
-	</body>
-</html>

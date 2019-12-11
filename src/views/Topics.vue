@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<h3>专题</h3>
-		<!-- <div class="row">
+		
+		<div class="row">
 			<div v-for="(item, index) in topics" :key="index" class="col-4 flex flex-center">
 				<div class="card shadow flex flex-top-y">
 					<div class="card-head flex flex-center">
@@ -16,7 +16,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row"><button class="btn btn-lg btn-rd dark-fill" @click="loadMore">点击加载更多</button></div> -->
+		<div class="row"><button class="btn btn-lg btn-rd dark-fill" @click="loadMore">点击加载更多</button></div>
 	</div>
 </template>
 

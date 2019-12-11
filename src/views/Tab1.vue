@@ -1,7 +1,6 @@
 <template>
 	<div>
-		<div class="col-8">
-		<h3>热门文章</h3>
+		
 		<div v-for="(item, index) in articles" :key="index" class="col-12">
 			<div class="media-wraaper border">
 				<div class="media-left">
@@ -24,7 +23,7 @@
 				</div>
 			</div>
 		</div>
-		</div>
+		
 	</div>
 </template>
 

@@ -75,13 +75,17 @@ p {
 .btn {
 	border: none;
 	cursor: pointer;
+	margin: 8px;
 }
 
 .btn-lg {
 	width: 80px;
 	height: 35px;
 }
-
+.btn-sm{
+	width: 60px;
+	height: 30px;
+}
 .btn-rd {
 	border-radius: 20px;
 }

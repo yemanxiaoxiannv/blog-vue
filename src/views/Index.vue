@@ -1,40 +1,57 @@
 <template>
 	<div>
-		<div class="container">
-			<div class="right">
+			<div class="cont">
+			  <div class="left">
+			   <div class="carousel-wrap">
+			   	<transition-group tag="ul" class="slide-ul" name="slide">
+			   		<li v-for="(item,index) in slideList"
+			   		 :key="index"
+			   		  v-show="index===currentIndex" 
+			   		  @mouseenter="stop"
+			   		   @mouseleave="go">
+			   			<a :href="item.url">
+			   				<img :src="item.image" :alt="item.description">
+			   			</a>
+			   		</li>
+			   	</transition-group>
+			   	<div class="carousel-items">
+			   		<span v-for="(item,index) in slideList" :class="{active:index===currentIndex}" @mouseover="change(index)"></span>
+			   	</div>
+			   </div>
+			  </div>
+			   <div class="right">
+			     <h3>社区热点</h3>
+				 
+				 <div class="button">
+				 <button class="btn btn-sm btn-rd">文学</button>
+				 <button class="btn btn-sm btn-rd">流行</button>
+				 <button class="btn btn-sm btn-rd">文化</button>
+				 <button class="btn btn-sm btn-rd">生活</button>
+				 <button class="btn btn-sm btn-rd">经管</button>
+				 <button class="btn btn-sm btn-rd">科技</button>
+				 <button class="btn btn-sm btn-rd">通讯</button>
+				 <button class="btn btn-sm btn-rd">交互</button>
+			   </div>
+			   <h3>关注我们</h3>
+			   <i class="iconfont">&#xe620;</i>
 
+			   
+			   </div>
 			</div>
-			<div class="left">
-				<div class="carousel-wrap">
-					<transition-group tag="ul" class="slide-ul" name="slide">
-						<li v-for="(item,index) in slideList" :key="index" v-show="index===currentIndex" @mouseenter="stop" @mouseleave="go">
-							<a :href="item.url">
-								<img :src="item.image" :alt="item.description">
-							</a>
-						</li>
-					</transition-group>
-					<div class="carousel-items">
-						<span v-for="(item,index) in slideList" :class="{active:index===currentIndex}" @mouseover="change(index)"></span>
-					</div>
-				</div>
-			</div>
-		</div>
 
 
-		<div class="container">
+		<div class="row">
 			<div class="l-left">
-				<div class="tab">
-					
+                  <div class="tab">
 					<router-link to="/index/Tab1">
 						<h2>每日精选</h2>
 					</router-link>
-				</div>
-				<div class="tab">
-					
+                  </div>
+				  <div class="tab">
 					<router-link to="/index/Tab2">
 						<h2>关注动态</h2>
 					</router-link>
-				</div>
+					</div>
 			</div>
 			<div class="l-right">
 				<router-view />
@@ -97,20 +114,6 @@
 		},
 		methods: {
 
-			change() {
-				this.bg_color = "#ff9999";
-				this.ft_color = "#fef0f0";
-			},
-			goback() {
-				if (this.liked) {
-					this.bg_color = "#f56c6c";
-					this.ft_color = "#fef0f0";
-				} else {
-					this.bg_color = "#fef0f0";
-					this.ft_color = "#f56c6c";
-				}
-			},
-
 			go() {
 				this.timer = setInterval(() => {
 					this.autoPlay()
@@ -136,29 +139,106 @@
 
 
 <style scoped="scoped">
-	.left {
-		flex: 0 0 90%;
-		height: 100%;
-		background-color: #eee;
-		border-bottom-left-radius: 8px;
-		border-top-left-radius: 8px;
-		color: #FFFFFF;
+	@font-face {
+	  font-family: 'iconfont';  /* project id 1432498 */
+	  src: url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.eot');
+	  src: url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.eot?#iefix') format('embedded-opentype'),
+	  url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.woff2') format('woff2'),
+	  url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.woff') format('woff'),
+	  url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.ttf') format('truetype'),
+	  url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.svg#iconfont') format('svg');
 	}
-
-	.right {
-		flex: 0 0 20px;
-		height: 100%;
-		margin-left: 0px;
-		width: 80%;
-		border-bottom-right-radius: 8px;
-		border-top-right-radius: 8px;
-		background-color: #aaa;
-	}
-	.tab{
-		width: 500px;
-		height: auto;
+	.iconfont{
+		color: #4CAF50;
+	    font-family:"iconfont" !important;
+	    font-size:32px;font-style:normal;
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-text-stroke-width: 0.2px;
+	    -moz-osx-font-smoothing: grayscale;}
+    .cont{
+      width: 80%;
+      margin: 0 auto;
+      /* height: 600px; */
+      display: flex;
+      margin-top: 100px;
+	  border: 1px solid #eee;
+     
+    }
+    .left{
+      flex: 0 0 70%;
+      height: 100%;
+    }
+    .right{
+      flex: 0 0 25%;
+      height: 100%;
+      margin-left: 15px;
+	  margin-top: 5px;
+      background-color: #FFFFFF;
+    }
+	.carousel-wrap {
+		position: relative;
+		height: 350px;
+		overflow: hidden;
 		
 	}
-
+	.tab{
+		margin-left: 115px;
+	}
+	.slide-ul {
+		width: 100%;
+		height: 100%;
+	}
 	
+	.slide-ul li {
+		position: absolute;
+		top:0;
+		left:0;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.slide-ul li img {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.carousel-items {
+		z-index: 100;
+		position: relative;
+		top: -80px;
+		text-align: center;
+		font-size: 0;
+	}
+	
+	.carousel-items span {
+		display: inline-block;
+		width: 50px;
+		height: 6px;
+		margin: 0 5px;
+		background-color: #eee;
+		cursor: pointer;
+	}
+	
+	.carousel-items .active {
+		background-color: #FFA500;
+	}
+	
+	/* 动画 */
+	.slide-enter-to {
+		transition: all 1s ease;
+		transform: translateX(0);
+	}
+	
+	.slide-leave-active {
+		transition: all 1s ease;
+		transform: translateX(-100%)
+	}
+	
+	.slide-enter {
+		transform: translateX(100%)
+	}
+	
+	.slide-leave {
+		transform: translateX(0)
+	}
 </style>

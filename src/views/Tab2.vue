@@ -1,29 +1,19 @@
 <template>
 	<div>
-		<div class="col-4">
-						<h3>热门作者</h3>
-						<div v-for="(item, index) in users" :key="index" class="row">
-							<div class="col-12 border box">
-								<div class="flex-center-y">
-									<router-link :to="{ path: '/user/' + item.id }">
-									<img :src="item.avatar" class="avatar-xs link" />
-									</router-link>
-									<p class="sub-title">{{ item.nickname }}</p>
-								</div>
-								<div class="flex-center-y">
-									<p class="meta">{{ item.fans }}个粉丝</p>
-									<p class="meta">写了{{ item.articles }}篇文章</p>
-								</div>
-								<div class="flex-center-y">
-								      <button   @click="favor"
-								               class="my_button" :style="{backgroundColor:bg_color, color: ft_color,}"
-								               @mouseenter="change()" @mouseleave="goback()">
-								        {{content}}
-								      </button>
-								    </div>
-							</div>
+		<div class="row">
+					<div class="col-3" v-for="(item, index) in topics" :key="index">
+						<div class="card link shadow">
+							<router-link :to="{ path: '/topic/' + item.id }"><img :src="item.logo" class="logo" /></router-link>
+							<p class="title">{{ item.topicName }}</p>
+							<p class="sub-title">{{ item.description.slice(0, 20) }}...</p>
+							<p class="meta">
+								<span class="gutter">{{ item.articles }}篇文章,</span>
+								<span>{{ item.follows }}人关注</span>
+							</p>
 						</div>
 					</div>
+				</div>
+
 	</div>
 </template>
 
