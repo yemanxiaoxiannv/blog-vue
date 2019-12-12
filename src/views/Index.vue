@@ -22,34 +22,58 @@
 			   <div class="right">
 			     <h3>社区热点</h3>
 				 
-				 <div class="button">
-				 <button class="btn btn-sm btn-rd">文学</button>
-				 <button class="btn btn-sm btn-rd">流行</button>
-				 <button class="btn btn-sm btn-rd">文化</button>
-				 <button class="btn btn-sm btn-rd">生活</button>
-				 <button class="btn btn-sm btn-rd">经管</button>
-				 <button class="btn btn-sm btn-rd">科技</button>
-				 <button class="btn btn-sm btn-rd">通讯</button>
-				 <button class="btn btn-sm btn-rd">交互</button>
-			   </div>
-			   <h3>关注我们</h3>
-			   <i class="iconfont">&#xe620;</i>
-
+				 
+				 <button class="button1 btn btn-sm btn-rd">文学</button>
+				 <button class="button1 btn btn-sm btn-rd">流行</button>
+				 <button class="button1 btn btn-sm btn-rd">文化</button>
+				 <button class="button1 btn btn-sm btn-rd">生活</button>
+				 <button class="button1 btn btn-sm btn-rd">经管</button>
+				 <button class="button1 btn btn-sm btn-rd">科技</button>
+				 <button class="button1 btn btn-sm btn-rd">通讯</button>
+				 <button class="button1 btn btn-sm btn-rd">交互</button>
 			   
+			   
+			   <h3>关注我们</h3>
+			   <br>
+			   <i class="iconfont">&#xe63d;</i>
+			   <h4 class="text">经典阅读</h4>
+			   <p class="text1">精品文章每日推送</p>
+			   <img src="../assets/img/ma.jpg" >
 			   </div>
 			</div>
-
-
-		<div class="row">
+			<div class="col">
+							<h3>热门作者</h3>
+							<div v-for="(item, index) in users" :key="index" class="row">
+								<div class="col-12 border box">
+									<div class="flex-center-y">
+										<router-link :to="{ path: '/user/' + item.id }">
+										<img :src="item.avatar" class="avatar" />
+										</router-link>
+										<p class="sub-title">{{ item.nickname }}</p>
+									</div>
+									<div class="flex-center-y">
+										<p class="meta">{{ item.fans }}个粉丝</p>
+										<p class="meta">写了{{ item.articles }}篇文章</p>
+									</div>
+									<div class="flex-center-y">
+							            <li class="btn btn-follow" v-if="item.status" @click="changeThumbUps1(item)">关注</li>
+							            <li class="btn btn-follow" v-if="!item.status" @click="changeThumbUps1(item)" >已关注</li>
+						            </div>
+								</div>
+							</div>
+						</div>
+			
+		<div class="boxx">
 			<div class="l-left">
                   <div class="tab">
 					<router-link to="/index/Tab1">
-						<h2>每日精选</h2>
+						<p class="bg" >每日精选</p>
 					</router-link>
                   </div>
+				  
 				  <div class="tab">
 					<router-link to="/index/Tab2">
-						<h2>关注动态</h2>
+						<p class="bg">关注动态</p>
 					</router-link>
 					</div>
 			</div>
@@ -57,6 +81,7 @@
 				<router-view />
 			</div>
 		</div>
+		
 	</div>
 </template>
 
@@ -69,30 +94,32 @@
 				topics: [],
 				currentIndex: 0,
 				timer: null,
+				count: 9,
+				currentPage: 1,
 				slideList: [{
 						"url": "#",
 						"description": "one",
-						"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbkVUZ1y6l5ldgikMVWuqVY_iOGKpnAo-EUqFA_Jgp44hbyDyC&s"
+						"image": "http://ww1.sinaimg.cn/large/006acpLLly1g9t75k0ox5j30l40akjs8.jpg"
 					},
 					{
 						"url": "#",
 						"description": "two",
-						"image": "https://images.idgesg.net/images/article/2019/05/java_gears_moving_parts_working_together_binary_code_coding_programming_development_by_shivendu_jauhari_gettyimages-1142383890_2400x1600-100795802-large.jpg"
+						"image": "http://ww1.sinaimg.cn/large/006acpLLly1g9t766mu3uj30l40akqf4.jpg"
 					},
 					{
 						"url": "#",
 						"description": "three",
-						"image": "https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_runtime_environment_monitoring_and_configuration_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790550-large.jpg"
+						"image": "http://ww1.sinaimg.cn/large/006acpLLly1g9t77itkz0j30l40akq92.jpg"
 					},
 					{
 						"url": "#",
 						"description": "four",
-						"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ5Oau0EPZnxFV9v9n6rTRPQEIzWEj5piyUXlY1iultWW7jaIFSg&s"
+						"image": "http://ww1.sinaimg.cn/large/006acpLLly1g9tm39c8t4j30l40akjyf.jpg"
 					},
 					{
 						"url": "#",
 						"description": "five",
-						"image": "https://www.elegantthemes.com/blog/wp-content/uploads/2019/08/000-Semantic-HTML.png"
+						"image": "http://ww1.sinaimg.cn/large/006acpLLly1g9tm39c8t4j30l40akjyf.jpg"
 					}
 
 				]
@@ -113,7 +140,6 @@
 			});
 		},
 		methods: {
-
 			go() {
 				this.timer = setInterval(() => {
 					this.autoPlay()
@@ -131,7 +157,16 @@
 				if (this.currentIndex > this.slideList.length - 1) {
 					this.currentIndex = 0
 				}
-			}
+			},
+			changeThumbUps1(item) {
+								if (item.status == 0) {
+									item.status = 1
+									item.fans--
+								} else {
+									item.status = 0
+									item.fans++
+								}
+							},
 		}
 
 	};
@@ -139,24 +174,71 @@
 
 
 <style scoped="scoped">
+	.avatar{
+		height: 70px;
+		width: 70px;
+		border-radius: 50%;
+	}
 	@font-face {
 	  font-family: 'iconfont';  /* project id 1432498 */
-	  src: url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.eot');
-	  src: url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.eot?#iefix') format('embedded-opentype'),
-	  url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.woff2') format('woff2'),
-	  url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.woff') format('woff'),
-	  url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.ttf') format('truetype'),
-	  url('//at.alicdn.com/t/font_1432498_4tjj1i32zf3.svg#iconfont') format('svg');
+	  src: url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.eot');
+	  src: url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.eot?#iefix') format('embedded-opentype'),
+	  url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.woff2') format('woff2'),
+	  url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.woff') format('woff'),
+	  url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.ttf') format('truetype'),
+	  url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.svg#iconfont') format('svg');
 	}
+	
 	.iconfont{
 		color: #4CAF50;
 	    font-family:"iconfont" !important;
 	    font-size:32px;font-style:normal;
 	    -webkit-font-smoothing: antialiased;
 	    -webkit-text-stroke-width: 0.2px;
-	    -moz-osx-font-smoothing: grayscale;}
+	    -moz-osx-font-smoothing: grayscale;
+		}
+		.button1{
+		    position: relative; /** 相对布局 **/
+		}
+		.button1:active{
+		    top: 3px; /**向下偏移2px **/
+			 color: #f56c6c;
+		}
+		.bg{
+			font-size: 23px;
+			padding: 5px;
+			color: #f56c6c;
+
+		}
+		.text{
+			margin-left: 38px;
+			margin-top: -35px;
+		}
+		.text1{
+			margin-left: 38px;
+			font-size: 12px;
+		}
+		img{
+			width: 100px;
+			height: 100px;
+		}
+		.boxx{
+			width: 995px;
+			margin-left: -50px;
+			margin-top: -80px;
+		}
+		.col{
+			width: 250px;
+			height: 100px;
+			margin-left: 950px;
+			
+		}
+		.l-right{
+			margin-left: 210px;
+			margin-top: -65px;
+		}
     .cont{
-      width: 80%;
+      width: 90%;
       margin: 0 auto;
       /* height: 600px; */
       display: flex;
@@ -165,7 +247,7 @@
      
     }
     .left{
-      flex: 0 0 70%;
+      flex: 0 0 80%;
       height: 100%;
     }
     .right{
@@ -175,6 +257,16 @@
 	  margin-top: 5px;
       background-color: #FFFFFF;
     }
+	 .btn-follow{
+	    color: #f56c6c;
+	    background: #fef0f0;
+	    border: #fbc4c4 solid;
+	    border-radius: 10px;
+	    padding: 10px 25px;
+	    text-align: center;
+	    font-size: 16px;
+	    -webkit-transform: scale(0.7);
+	  }
 	.carousel-wrap {
 		position: relative;
 		height: 350px;
@@ -205,18 +297,21 @@
 	.carousel-items {
 		z-index: 100;
 		position: relative;
-		top: -80px;
+		top: -25px;
 		text-align: center;
 		font-size: 0;
+		
+		
 	}
 	
 	.carousel-items span {
 		display: inline-block;
-		width: 50px;
+		width: 6px;
 		height: 6px;
 		margin: 0 5px;
 		background-color: #eee;
 		cursor: pointer;
+		border-radius: 50%;
 	}
 	
 	.carousel-items .active {
@@ -240,5 +335,8 @@
 	
 	.slide-leave {
 		transform: translateX(0)
+	}
+	.router-link-active {
+		background-color: rgb(240, 240, 240);
 	}
 </style>

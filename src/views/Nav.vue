@@ -8,7 +8,7 @@
 					<li class="nav-item"><router-link to="/articles">文章</router-link></li>
 					<li class="nav-item"><router-link to="/users">作者</router-link></li>
 					<li class="nav-item"><input type="text" class="input-box" placeholder="搜索" v-model="keywords" /></li>
-					<li class="nav-item"><button class="btn btn-lg btn-rd dark-border box" @click="search">搜索</button></li>
+					<li class="nav-item"><i class="iconfont" @click="search">&#xe62e;</i></li>
 					<li class="nav-item" v-if="!this.user"><router-link to="/sign-in">登录</router-link></li>
 						<router-link :to="{ path: '/user/' + user.id }" v-if="this.user"><img :src="user.avatar" @mouseenter="this.show = true" class="avatar-lg abs-center-right" /></router-link>
 					<li class="nav-item" v-if="this.user"><a class="link" @click="logout">退出</a></li>
@@ -45,6 +45,27 @@ export default {
 };
 </script>
 <style scoped>
+	@font-face {
+	  font-family: 'iconfont';  /* project id 1432498 */
+	  src: url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.eot');
+	  src: url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.eot?#iefix') format('embedded-opentype'),
+	  url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.woff2') format('woff2'),
+	  url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.woff') format('woff'),
+	  url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.ttf') format('truetype'),
+	  url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.svg#iconfont') format('svg');
+	}
+	.iconfont{
+		color: #000000;
+	    font-family:"iconfont" !important;
+	    font-size:32px;font-style:normal;
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-text-stroke-width: 0.2px;
+	    -moz-osx-font-smoothing: grayscale;
+		margin-left: -80px;
+		}
+		.ss{
+			
+		}
 /* 路由激活高亮样式 */
 .router-link-active {
 	background-color: rgba(0, 0, 0, 0.35);

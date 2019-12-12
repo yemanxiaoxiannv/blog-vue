@@ -22,7 +22,7 @@ p {
 
 /* ---------主题设置----------- */
 .primary-fill {
-	background-color: #1565C0;
+	background-color: rgb(232, 181, 152);
 	color: #fff;
 }
 
@@ -76,6 +76,7 @@ p {
 	border: none;
 	cursor: pointer;
 	margin: 8px;
+
 }
 
 .btn-lg {

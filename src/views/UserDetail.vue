@@ -3,9 +3,18 @@
 		<div class="banner flex flex-center"><img :src="userVo.user.banner" class="cover shadow" /></div>
 		<div class="info">
 			<img :src="userVo.user.avatar" class="avatar" />
-			<p>{{ userVo.user.nickname }}</p>
-			<!-- <p>{{ userVo.user.introduction.slice(0, 20) }}...</p> -->
-		</div>
+			<h2>{{ userVo.user.nickname }}</h2>
+			<p class="title-fans-left"> 写了{{userVo.user.articles}}篇文章  {{userVo.user.fans}}粉丝</p>
+			<p class="title-detail">{{ userVo.user.introduction.slice(0, 300) }}</p>
+			<button class="btn btn-follow" @click="show = !show">编辑个人资料</button>
+		</div >
+		<transition name="fade">
+			<div id="edit-box" v-if="show">
+				<input type="text" placeholder="昵称" v-model="userVo.user.nickname">
+				<input type="text" placeholder="地址" v-model="userVo.user.introduction.slice(0,300)">
+				<button class="btn btn-follow" @click="updateUser(userVo)">确定</button>
+			</div>
+		</transition>
 		<div class="row">
 			<div class="col-8">
 				<div class="col-12" v-for="(item, index) in userVo.articleList" :key="index">
@@ -14,11 +23,21 @@
 						<div class="media-middle">
 							<p class="title">{{ item.article.title }}</p>
 							<p class="sub-title">{{ item.article.summary }}</p>
+							<p class="tit">
+								<span class="meta gutter ">{{ item.article.comments }}评论</span>
+								<span class="meta gutter">{{ item.article.likes }}喜欢</span>
+								<span class="meta ">{{ item.article.createTime.date.year }}年{{ item.article.createTime.date.month }}月{{ item.article.createTime.date.day }}日</span>
+							</p>
+							<p class="sub-tit"><button class="btn btn-botton" @click="deleteUser(item.id,index)">删除</button></p>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-4"></div>
+			<div class="col-4 ">
+				<div class="nav-list flex-around">
+				
+				</div>
+			</div>    
 		</div>
 	</div>
 </template>
@@ -29,7 +48,8 @@ export default {
 		return {
 			userVo: {
 				user: {},
-				articleList: {}
+				articleList: {},
+				show: false
 			}
 		};
 	},
@@ -40,42 +60,156 @@ export default {
 			this.userVo = res.data.data;
 		});
 	},
-	methods: {}
+	methods: {
+		updateUser:function(userVo){
+			let data ={
+					"id": userVo.user.id,
+					"nickname": userVo.user.nickname,
+					"password": userVo.user.password,
+					"avatar": userVo.user.avatar,
+					"address":userVo.user.address,
+					"introduction":userVo.user.introduction,
+			};
+			var _this= this;
+			axios.put('http://u2c7152733.zicp.vip/api/user',JSON.stringify(data))
+			.then(function(response){
+				console.log(response.data.msg);
+				_this.show = false;
+			})
+		},
+		deleteUser:function(id,index){
+			alert(id+" " +index);
+			var param ={
+				id:id
+			}
+			var _this=this;
+			axios.delete('http://u2c7152733.zicp.vip/api/user',{
+				params:param
+			})
+			.then(function(response){
+				console.log(response.data.msg);
+				_this.users.splice(index,1);
+			})
+		},
+		
+		
+	}
 };
 </script>
 
 <style scoped="scoped">
 .banner {
 	width: 100%;
-	height: 300px;
+	height: 280px;
 }
 .cover {
-	width: 100%;
-	height: 100%;
-	border-radius: 10px;
+	width: 85%;
+	height: 90%;
+	border-radius: 20px;
 }
 .info {
 	position: relative;
 	top: -60px;
-	left: -400px;
-	color: #fff;
+	left: 0px;
 	margin-bottom: -50px;
-	padding: 10px;
-	background-color: rgb(0, 0, 0, 0.3);
-	width: 130px;
-	height: 130px;
-	margin: 0 auto;
 	text-align: center;
 	border-radius: 20px;
 }
 .info img {
-	width: 80px;
-	height: 80px;
+	width: 100px;
+	height: 100px;
 	border-radius: 50%;
 	border: 2px solid #fff;
+	
+}
+.row{
+	margin-left: 140px;
+}
+ul {
+	width: 100%;
+}
+li {
+	width: 100%;
 	margin-bottom: 10px;
+	border-radius: 5px;
 }
-.row {
-	margin-top: -50px;
+li a {
+	display: block;
+	color: rgb(51, 51, 51);
+	height: 50px;
+	width: 50%;
+	margin-left: -25px;
+	padding-top: 15px;
+	padding-left: 20px;
 }
+li a:hover {
+	background-color: rgb(245, 250, 250);
+}
+.router-link-active {
+	background-color: rgb(240, 240, 240);
+}
+.btn-follow {
+	background-color: rgb(232, 181, 152);
+	font-weight: 400;
+	font-size: 15px;
+	color: #fff;
+	padding: 5px 0;
+	width: 120px;
+	height: 30px;
+	border-radius: 10px;
+	display: inline-block;
+	text-align: center;
+	border: none;
+	outline: none;
+	box-shadow: 2px 2px 5px #aaa; 
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.btn-botton {
+	background-color: rgb(232, 181, 152);
+	font-weight: 400;
+	font-size: 13px;
+	color: #fff;
+	padding: 5px 0;
+	width: 60px;
+	height: 28px;
+	border-radius: 5px;
+	display: inline-block;
+	text-align: center;
+	border: none;
+	outline: none;
+	box-shadow: 2px 2px 5px #aaa; 
+	
+}
+.sub-tit{
+	margin-left: 380px;
+	margin-top: -20px;
+}
+.tit{
+	padding-top: 55px;
+}
+.title-detail{
+	font-size: 12px;
+	color: rgb(170, 170, 170);
+	
+}
+.title-fans-left{
+	font-size: 16px;
+	color: rgb(119, 119, 119);
+	padding-top: 13px;
+	padding-bottom: 10px;
+	margin-left: 0px;
+	word-spacing: 15px;
+}
+.item{
+	margin-top:15px ;
+}
+/*动画效果*/
+			.fade-enter-active, .fade-leave-avtive{
+				transition: opacity 1s;
+				
+			}
+			.fade-enter, .fade-leave-to{
+				opacity: 0;
+			}
 </style>

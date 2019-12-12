@@ -49,17 +49,18 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-image: url(../assets/img/topic.png);
+	background-image: url(../assets/img/bg.jpg);
+	background-size: cover;
 }
 .login-box {
 	width: 450px;
 	height: 300px;
-	border: 2px solid rgb(170, 208, 95);
+	border: 1px solid rgb(74, 194, 185);
 	border-radius: 10px;
-	background-color: rgb(170, 208, 95, 0.6);
+	background-color: rgb(74, 194, 185, 0.5);
 	position: absolute;
 	top: 200px;
-	left: 30%;
+	left: 40%;
 }
 .login-form {
 	padding-top: 40px;

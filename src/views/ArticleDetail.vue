@@ -11,6 +11,14 @@
 			</span>
 		</div>
 		<div v-html="articleVo.article.content"></div>
+		<div class="table">
+			<img :src="articleVo.author.avatar" class="avatar" />
+			
+		<input type="text" class="input1" placeholder="留下你的评论"  />
+		</div>
+		<div>
+			<h2>精彩评论</h2>
+		</div>
 	</div>
 </template>
 
@@ -34,7 +42,25 @@ export default {
 </script>
 
 <style scoped="scoped">
-	
+	.avatar{
+		width:60px;
+		border-radius: 50%;
+		position: relative;
+		top: -10px;
+		padding: 5px;
+	}
+	.table{
+		margin-top: 20px;
+		
+	}
+	.input1{
+		
+		width: 50%;
+		height: 80px;
+		border: 1px solid darkcyan;
+		border-radius: 5px;
+		
+	}
 	.box{
 		height: 50px;
 		line-height: 50px;

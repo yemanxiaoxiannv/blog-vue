@@ -13,6 +13,7 @@
 						</div>
 					</div>
 				</div>
+				<div class="row"><button class="btn btn-lg btn-rd dark-fill" @click="loadMore">点击加载更多</button></div>
 
 	</div>
 </template>
@@ -25,42 +26,60 @@
 				users: [],
 				topics: [],
 				currentIndex: 0,
-				timer: null
+				timer: null,
+				currentPage: 1,
+				count: 8
 			};
 		},
 		created() {
-			this.axios.get(this.GLOBAL.baseUrl + '/article').then(res => {
-				// console.log(res.data.data);
-				this.articles = res.data.data;
-			});
-			this.axios.get(this.GLOBAL.baseUrl + '/user').then(res => {
-				// console.log(res.data.data);
-				this.users = res.data.data;
-			});
-			this.axios.get(this.GLOBAL.baseUrl + '/topic').then(res => {
-				// console.log(res.data.data);
-				this.topics = res.data.data;
-			});
+			// this.axios.get(this.GLOBAL.baseUrl + '/article').then(res => {
+			// 	// console.log(res.data.data);
+			// 	this.articles = res.data.data;
+			// });
+			// this.axios.get(this.GLOBAL.baseUrl + '/user').then(res => {
+			// 	// console.log(res.data.data);
+			// 	this.users = res.data.data;
+			// });
+			this.axios
+				.get(this.GLOBAL.baseUrl + '/topic', {
+					params: {
+						page: this.currentPage,
+						count: this.count
+					}
+				})
+				.then(res => {
+					// console.log(res.data.data.length);
+					this.topics = res.data.data;
+				});
+			// this.axios.get(this.GLOBAL.baseUrl + '/topic').then(res => {
+			// 	// console.log(res.data.data);
+			// 	this.topics = res.data.data;
+			// });
 		},
 		methods: {
-			go() {
-				this.timer = setInterval(() => {
-					this.autoPlay()
-				}, 3000)
+			loadMore() {
+				this.currentPage = this.currentPage + 1;
+				this.axios
+					.get(this.GLOBAL.baseUrl + '/topic', {
+						params: {
+							page: this.currentPage,
+							count: this.count
+						}
+					})
+					.then(res => {
+						console.log(res.data.data.length);
+						let temp = [];
+						temp = res.data.data;
+						for (var i = 0; i < temp.length; i++) {
+							this.topics.splice(this.currentPage * this.count, 0, temp[i]);
+						}
+						console.log(this.topics.length);
+					});
 			},
-			stop() {
-				clearInterval(this.timer)
-				this.timer = null
-			},
-			change(index) {
-				this.currentIndex = index
-			},
-			autoPlay() {
-				this.currentIndex++
-				if (this.currentIndex > this.slideList.length - 1) {
-					this.currentIndex = 0
-				}
+			go(page) {
+				window.location.href = page;
 			}
+			
 		}
 	};
 </script>
