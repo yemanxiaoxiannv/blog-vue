@@ -3,6 +3,12 @@ import VueRouter from 'vue-router'
 
 import Tab1 from '@/views/Tab1.vue'
 import Tab2 from '@/views/Tab2.vue'
+import Account from '@/views/Account.vue'
+import Topup from '@/views/Topup.vue'
+import Essay from '@/views/Essay.vue'
+import Dynamic from '@/views/Dynamic.vue'
+
+
 
 import Nav from '@/views/Nav.vue'
 import SignIn from '@/views/SignIn.vue'
@@ -37,20 +43,20 @@ const routes = [{
 			{
 				path: 'index',
 				component: Index,
-				children:[{
-					path:'/',
-					redirect:'tab1'
-				},
-				{
-					path:'tab1',
-					component:Tab1
-				},
-				{
-					path:'tab2',
-					component:Tab2
-				},
+				children: [{
+						path: '/',
+						redirect: 'tab1'
+					},
+					{
+						path: 'tab1',
+						component: Tab1
+					},
+					{
+						path: 'tab2',
+						component: Tab2
+					},
 				]
-				
+
 			},
 			{
 				path: 'articles',
@@ -75,29 +81,42 @@ const routes = [{
 			},
 			{
 				path: 'user/:id',
-				component: UserDetail
+				component: UserDetail,
+				children: [{
+						path: '/',
+						redirect: 'essay'
+					},
+					{
+						path: 'essay',
+						component: Essay
+					},
+					{
+						path: 'dynamic',
+						component: Dynamic
+					},
+				]
+
 			},
 			{
-					path :'search',
-					component:Search,
-					children:[
-						{
-							path: '/',
-							redirect: 'article'
-						},
-						{
-							path: 'article',
-							component: SearchArticle
-						},
-						{
-							path: 'topic',
-							component: SearchTopic
-						},
-						{
-							path: 'user',
-							component: SearchUser
-						}
-					]
+				path: 'search',
+				component: Search,
+				children: [{
+						path: '/',
+						redirect: 'article'
+					},
+					{
+						path: 'article',
+						component: SearchArticle
+					},
+					{
+						path: 'topic',
+						component: SearchTopic
+					},
+					{
+						path: 'user',
+						component: SearchUser
+					}
+				]
 			},
 			{
 				path: 'empty',

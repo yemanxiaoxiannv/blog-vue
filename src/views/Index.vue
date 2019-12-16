@@ -59,7 +59,7 @@
 							            <li class="btn btn-follow" v-if="item.status" @click="changeThumbUps1(item)">关注</li>
 							            <li class="btn btn-follow" v-if="!item.status" @click="changeThumbUps1(item)" >已关注</li>
 						            </div>
-								</div>
+								</div>。。。。。
 							</div>
 						</div>
 			

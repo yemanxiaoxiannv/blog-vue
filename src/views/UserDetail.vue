@@ -6,38 +6,33 @@
 			<h2>{{ userVo.user.nickname }}</h2>
 			<p class="title-fans-left"> 写了{{userVo.user.articles}}篇文章  {{userVo.user.fans}}粉丝</p>
 			<p class="title-detail">{{ userVo.user.introduction.slice(0, 300) }}</p>
-			<button class="btn btn-follow" @click="show = !show">编辑个人资料</button>
+			
 		</div >
-		<transition name="fade">
-			<div id="edit-box" v-if="show">
-				<input type="text" placeholder="昵称" v-model="userVo.user.nickname">
-				<input type="text" placeholder="地址" v-model="userVo.user.introduction.slice(0,300)">
-				<button class="btn btn-follow" @click="updateUser(userVo)">确定</button>
-			</div>
-		</transition>
-		<div class="row">
-			<div class="col-8">
-				<div class="col-12" v-for="(item, index) in userVo.articleList" :key="index">
-					<div class="media-wraaper shadow">
-						<div class="media-left"><img :src="item.article.thumbnail" class="thumnail-xs" /></div>
-						<div class="media-middle">
-							<p class="title">{{ item.article.title }}</p>
-							<p class="sub-title">{{ item.article.summary }}</p>
-							<p class="tit">
-								<span class="meta gutter ">{{ item.article.comments }}评论</span>
-								<span class="meta gutter">{{ item.article.likes }}喜欢</span>
-								<span class="meta ">{{ item.article.createTime.date.year }}年{{ item.article.createTime.date.month }}月{{ item.article.createTime.date.day }}日</span>
-							</p>
-							<p class="sub-tit"><button class="btn btn-botton" @click="deleteUser(item.id,index)">删除</button></p>
-						</div>
+		
+		<div class="boxx">
+			<div class="l-left">
+		          <div class="tab">
+					 <ul> 
+				       <li>
+					     <router-link :to="{ path: '/user/'+userVo.user.id+'/essay'}">
+						      <p class="bg">文章</p>
+					     </router-link>
+					    </li>
+					</ul>
+		          </div>
+				  <div class="tab">
+					<ul>
+					   <li>
+					     <router-link :to="{ path: '/user/'+userVo.user.id+'/dynamic'}">
+						      <p class="bg">关注</p>
+					     </router-link>
+					    </li>
+					</ul>
 					</div>
-				</div>
 			</div>
-			<div class="col-4 ">
-				<div class="nav-list flex-around">
-				
-				</div>
-			</div>    
+			<div class="l-right">
+				<router-view />
+			</div>
 		</div>
 	</div>
 </template>
@@ -49,7 +44,7 @@ export default {
 			userVo: {
 				user: {},
 				articleList: {},
-				show: false
+			
 			}
 		};
 	},
@@ -61,22 +56,6 @@ export default {
 		});
 	},
 	methods: {
-		updateUser:function(userVo){
-			let data ={
-					"id": userVo.user.id,
-					"nickname": userVo.user.nickname,
-					"password": userVo.user.password,
-					"avatar": userVo.user.avatar,
-					"address":userVo.user.address,
-					"introduction":userVo.user.introduction,
-			};
-			var _this= this;
-			axios.put('http://u2c7152733.zicp.vip/api/user',JSON.stringify(data))
-			.then(function(response){
-				console.log(response.data.msg);
-				_this.show = false;
-			})
-		},
 		deleteUser:function(id,index){
 			alert(id+" " +index);
 			var param ={
@@ -96,8 +75,29 @@ export default {
 	}
 };
 </script>
-
 <style scoped="scoped">
+
+.bg{
+			font-size: 14px;
+			padding: 5px;
+			color: #f56c6c;
+
+		}
+
+.l-right{
+			margin-left: 180px;
+			margin-top: -115px;
+		}
+
+.boxx{
+			width: 80%;
+			margin-left: 80px;
+			margin-top: 30px;
+		}
+.tab{
+	margin-left: 120px;
+}
+
 .banner {
 	width: 100%;
 	height: 280px;
@@ -136,17 +136,17 @@ li {
 li a {
 	display: block;
 	color: rgb(51, 51, 51);
-	height: 50px;
-	width: 50%;
+	height: 45px;
+	width: 12%;
 	margin-left: -25px;
-	padding-top: 15px;
-	padding-left: 20px;
+	padding-top: 10px;
+	padding-left: 30px;
 }
 li a:hover {
-	background-color: rgb(245, 250, 250);
+	background-color: rgb(240, 250, 250);
 }
 .router-link-active {
-	background-color: rgb(240, 240, 240);
+	background-color: rgb(250, 250, 250);
 }
 .btn-follow {
 	background-color: rgb(232, 181, 152);
@@ -166,19 +166,17 @@ li a:hover {
 	margin-bottom: 5px;
 }
 .btn-botton {
-	background-color: rgb(232, 181, 152);
-	font-weight: 400;
-	font-size: 13px;
-	color: #fff;
-	padding: 5px 0;
-	width: 60px;
-	height: 28px;
-	border-radius: 5px;
-	display: inline-block;
-	text-align: center;
-	border: none;
-	outline: none;
-	box-shadow: 2px 2px 5px #aaa; 
+        width: 100px;
+	    color: #f56c6c;
+	    background: rgb(232, 181, 152,0.3);
+	    border: 3px solid rgb(232, 181, 152,0.3);
+	    border-radius: 10px;
+	    padding: 10px 25px;
+	    text-align: center;
+	    font-size: 16px;
+		margin-top: -5px;
+	    -webkit-transform: scale(0.7);
+	  
 	
 }
 .sub-tit{
