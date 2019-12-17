@@ -1,6 +1,6 @@
 <template>
 	<div id="bg">
-		<router-link to="/">首页</router-link>
+		<router-link to="/"><i class="iconfont">&#xe8ff;</i></router-link>
 		<div class="login-box">
 			<form class="login-form">
 				<input type="text" placeholder="请输入手机号" v-model="userDto.mobile" id="mobile" />
@@ -71,6 +71,22 @@ export default {
 };
 </script>
 <style scoped>
+@font-face {
+	  font-family: 'iconfont';  /* project id 1432498 */
+	  src: url('//at.alicdn.com/t/font_1432498_k0gcn9xtsgr.eot');
+	  src: url('//at.alicdn.com/t/font_1432498_k0gcn9xtsgr.eot?#iefix') format('embedded-opentype'),
+	  url('//at.alicdn.com/t/font_1432498_k0gcn9xtsgr.woff2') format('woff2'),
+	  url('//at.alicdn.com/t/font_1432498_k0gcn9xtsgr.woff') format('woff'),
+	  url('//at.alicdn.com/t/font_1432498_k0gcn9xtsgr.ttf') format('truetype'),
+	  url('//at.alicdn.com/t/font_1432498_k0gcn9xtsgr.svg#iconfont') format('svg');
+	}
+.iconfont{
+	    font-family:"iconfont" !important;
+	    font-size:32px;font-style:normal;
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-text-stroke-width: 0.2px;
+	    -moz-osx-font-smoothing: grayscale;
+		}
 #bg {
 	position: absolute;
 	top: 0;

@@ -43,20 +43,19 @@ const routes = [{
 			{
 				path: 'index',
 				component: Index,
-				children: [{
-						path: '/',
-						redirect: 'tab1'
-					},
-					{
-						path: 'tab1',
-						component: Tab1
-					},
-					{
-						path: 'tab2',
-						component: Tab2
-					},
+				children:[{
+					path:'/',
+					redirect:'tab1'
+				},
+				{
+					path:'tab1',
+					component:Tab1
+				},
+				{
+					path:'tab2',
+					component:Tab2
+				}
 				]
-
 			},
 			{
 				path: 'articles',
@@ -96,6 +95,14 @@ const routes = [{
 					},
 				]
 
+			},
+			{
+				path:'/account',
+				component:Account
+			},
+			{
+				path:'/topup',
+				component:Topup
 			},
 			{
 				path: 'search',

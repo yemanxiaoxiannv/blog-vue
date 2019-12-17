@@ -16,22 +16,26 @@
 						<router-link to="/users">作者</router-link>
 					</li>
 					<li class="nav-item"><input type="text" class="input-box" placeholder="搜索" v-model="keywords" /></li>
-					<li class="nav-item"><i class="iconfont" @click="search">&#xe62e;</i></li>
+					<li class="nav-item"><i class="iconfont" @click="search">&#xe89c;</i></li>
 					<li class="nav-item" v-if="!this.user">
 						<router-link to="/sign-in">登录</router-link>
 					</li>
-					<li>
+					<li v-if="this.user">
 						<div class="dropdown">
-							<a href="#" class="dropbtn"><img :src="user.avatar" @mouseenter="this.show = true" class="avatar-lg" /></a>
+							<div class="dropbtn"><img :src="user.avatar" @mouseenter="this.show = true" class="avatar-lg" /></div>
 							<div class="dropdown-content">
-								<router-link :to="{ path: '/user/' + user.id }" v-if="this.user">个人主页</router-link>
-								<router-link to="/index/Account">账号设置</router-link>
-								<router-link to="/index/Topup">VIP充值</router-link>
+								<router-link :to="{ path: '/user/' + user.id }">个人主页</router-link>
+								<router-link to="/Account">账号设置</router-link>
+								<router-link to="/Topup">VIP充值</router-link>
 							</div>
 						</div>
 					</li>
                     <!-- <router-link :to="{ path: '/user/' + user.id }" v-if="this.user"><img :src="user.avatar" @mouseenter="this.show = true" class="avatar-xs abs-center-right" /></router-link> -->
-					<li class="nav-item" v-if="this.user"><a class="linka" @click="logout">退出</a></li>
+					<li class="nav-item" v-if="this.user">
+						
+							<a class="linka" @click="logout">退出</a>
+						
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -77,14 +81,13 @@
 </script>
 <style scoped>
 	@font-face {
-		font-family: 'iconfont';
-		/* project id 1432498 */
-		src: url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.eot');
-		src: url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.eot?#iefix') format('embedded-opentype'),
-			url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.woff2') format('woff2'),
-			url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.woff') format('woff'),
-			url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.ttf') format('truetype'),
-			url('//at.alicdn.com/t/font_1432498_f6b8j93tqzc.svg#iconfont') format('svg');
+	  font-family: 'iconfont';  /* project id 1432498 */
+	  src: url('//at.alicdn.com/t/font_1432498_dg9j63089r.eot');
+	  src: url('//at.alicdn.com/t/font_1432498_dg9j63089r.eot?#iefix') format('embedded-opentype'),
+	  url('//at.alicdn.com/t/font_1432498_dg9j63089r.woff2') format('woff2'),
+	  url('//at.alicdn.com/t/font_1432498_dg9j63089r.woff') format('woff'),
+	  url('//at.alicdn.com/t/font_1432498_dg9j63089r.ttf') format('truetype'),
+	  url('//at.alicdn.com/t/font_1432498_dg9j63089r.svg#iconfont') format('svg');
 	}
 
 	.iconfont {
@@ -104,18 +107,18 @@
 		background-color: rgba(0, 0, 0, 0.35);
 		font-weight: 700;
 	}
+	.linka{
+		margin-left: -80px;
+	}
 
 	.container {
 		margin-top: 80px;
+		cursor: pointer;
 	}
 
 	.box {
 		margin-left: -60px;
 		background-color: #E0E0E0;
-	}
-	.linka{
-		cursor: pointer;
-		margin-left: -80px;
 	}
 
 	li a,

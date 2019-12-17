@@ -1,87 +1,83 @@
 <template>
 	<div>
-			<div class="cont">
-			  <div class="left">
-			   <div class="carousel-wrap">
-			   	<transition-group tag="ul" class="slide-ul" name="slide">
-			   		<li v-for="(item,index) in slideList"
-			   		 :key="index"
-			   		  v-show="index===currentIndex" 
-			   		  @mouseenter="stop"
-			   		   @mouseleave="go">
-			   			<a :href="item.url">
-			   				<img :src="item.image" :alt="item.description">
-			   			</a>
-			   		</li>
-			   	</transition-group>
-			   	<div class="carousel-items">
-			   		<span v-for="(item,index) in slideList" :class="{active:index===currentIndex}" @mouseover="change(index)"></span>
-			   	</div>
-			   </div>
-			  </div>
-			   <div class="right">
-			     <h3>社区热点</h3>
-				 
-				 
-				 <button class="button1 btn btn-sm btn-rd">文学</button>
-				 <button class="button1 btn btn-sm btn-rd">流行</button>
-				 <button class="button1 btn btn-sm btn-rd">文化</button>
-				 <button class="button1 btn btn-sm btn-rd">生活</button>
-				 <button class="button1 btn btn-sm btn-rd">经管</button>
-				 <button class="button1 btn btn-sm btn-rd">科技</button>
-				 <button class="button1 btn btn-sm btn-rd">通讯</button>
-				 <button class="button1 btn btn-sm btn-rd">交互</button>
-			   
-			   
-			   <h3>关注我们</h3>
-			   <br>
-			   <i class="iconfont">&#xe63d;</i>
-			   <h4 class="text">经典阅读</h4>
-			   <p class="text1">精品文章每日推送</p>
-			   <img src="../assets/img/ma.jpg" >
-			   </div>
+		<div class="cont">
+			<div class="left">
+				<div class="carousel-wrap">
+					<transition-group tag="ul" class="slide-ul" name="slide">
+						<li v-for="(item,index) in slideList" :key="index" v-show="index===currentIndex" @mouseenter="stop" @mouseleave="go">
+							<a :href="item.url">
+								<img :src="item.image" :alt="item.description">
+							</a>
+						</li>
+					</transition-group>
+					<div class="carousel-items">
+						<span v-for="(item,index) in slideList" :class="{active:index===currentIndex}" @mouseover="change(index)"></span>
+					</div>
+				</div>
 			</div>
-			<div class="col">
-							<h3>热门作者</h3>
-							<div v-for="(item, index) in users" :key="index" class="row">
-								<div class="col-12 border box">
-									<div class="flex-center-y">
-										<router-link :to="{ path: '/user/' + item.id }">
-										<img :src="item.avatar" class="avatar" />
-										</router-link>
-										<p class="sub-title">{{ item.nickname }}</p>
-									</div>
-									<div class="flex-center-y">
-										<p class="meta">{{ item.fans }}个粉丝</p>
-										<p class="meta">写了{{ item.articles }}篇文章</p>
-									</div>
-									<div class="flex-center-y">
-							            <li class="btn btn-follow" v-if="item.status" @click="changeThumbUps1(item)">关注</li>
-							            <li class="btn btn-follow" v-if="!item.status" @click="changeThumbUps1(item)" >已关注</li>
-						            </div>
-								</div>。。。。。
-							</div>
-						</div>
-			
+			<div class="right">
+				<h3>社区热点</h3>
+
+
+				<button class="button1 btn btn-sm btn-rd">文学</button>
+				<button class="button1 btn btn-sm btn-rd">流行</button>
+				<button class="button1 btn btn-sm btn-rd">文化</button>
+				<button class="button1 btn btn-sm btn-rd">生活</button>
+				<button class="button1 btn btn-sm btn-rd">经管</button>
+				<button class="button1 btn btn-sm btn-rd">科技</button>
+				<button class="button1 btn btn-sm btn-rd">通讯</button>
+				<button class="button1 btn btn-sm btn-rd">交互</button>
+
+
+				<h3>关注我们</h3>
+				<br>
+				<i class="iconfont">&#xe63d;</i>
+				<h4 class="text">经典阅读</h4>
+				<p class="text1">精品文章每日推送</p>
+				<img src="../assets/img/ma.jpg">
+			</div>
+		</div>
+		<div class="col">
+			<h3>热门作者</h3>
+			<div v-for="(item, index) in users" :key="index" class="row">
+				<div class="col-12 border box">
+					<div class="flex-center-y">
+						<router-link :to="{ path: '/user/' + item.id }">
+							<img :src="item.avatar" class="avatar" />
+						</router-link>
+						<p class="sub-title">{{ item.nickname }}</p>
+					</div>
+					<div class="flex-center-y">
+						<p class="meta">{{ item.fans }}个粉丝</p>
+						<p class="meta">写了{{ item.articles }}篇文章</p>
+					</div>
+					<div class="flex-center-y">
+						<li class="btn btn-follow" v-if="item.status" @click="changeThumbUps1(item)">关注</li>
+						<li class="btn btn-follow" v-if="!item.status" @click="changeThumbUps1(item)">已关注</li>
+					</div>
+				</div>。。。。。
+			</div>
+		</div>
+
 		<div class="boxx">
 			<div class="l-left">
-                  <div class="tab">
+				<div class="tab">
 					<router-link to="/index/Tab1">
-						<p class="bg" >每日精选</p>
+						<p class="bg">每日精选</p>
 					</router-link>
-                  </div>
-				  
-				  <div class="tab">
+				</div>
+
+				<div class="tab">
 					<router-link to="/index/Tab2">
 						<p class="bg">关注动态</p>
 					</router-link>
-					</div>
+				</div>
 			</div>
 			<div class="l-right">
 				<router-view />
 			</div>
 		</div>
-		
+
 	</div>
 </template>
 
@@ -120,6 +116,11 @@
 						"url": "#",
 						"description": "five",
 						"image": "http://ww1.sinaimg.cn/large/006acpLLly1g9tm39c8t4j30l40akjyf.jpg"
+					},
+					{
+						"url": "#",
+						"description": "six",
+						"image": "http://ww1.sinaimg.cn/large/006acpLLly1g9ydgovukwj30l40akjrs.jpg"
 					}
 
 				]
@@ -159,14 +160,14 @@
 				}
 			},
 			changeThumbUps1(item) {
-								if (item.status == 0) {
-									item.status = 1
-									item.fans--
-								} else {
-									item.status = 0
-									item.fans++
-								}
-							},
+				if (item.status == 0) {
+					item.status = 1
+					item.fans--
+				} else {
+					item.status = 0
+					item.fans++
+				}
+			},
 		}
 
 	};
@@ -174,136 +175,157 @@
 
 
 <style scoped="scoped">
-	.avatar{
+	.avatar {
 		height: 70px;
 		width: 70px;
 		border-radius: 50%;
 	}
-	@font-face {
-	  font-family: 'iconfont';  /* project id 1432498 */
-	  src: url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.eot');
-	  src: url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.eot?#iefix') format('embedded-opentype'),
-	  url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.woff2') format('woff2'),
-	  url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.woff') format('woff'),
-	  url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.ttf') format('truetype'),
-	  url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.svg#iconfont') format('svg');
-	}
-	
-	.iconfont{
-		color: #4CAF50;
-	    font-family:"iconfont" !important;
-	    font-size:32px;font-style:normal;
-	    -webkit-font-smoothing: antialiased;
-	    -webkit-text-stroke-width: 0.2px;
-	    -moz-osx-font-smoothing: grayscale;
-		}
-		.button1{
-		    position: relative; /** 相对布局 **/
-		}
-		.button1:active{
-		    top: 3px; /**向下偏移2px **/
-			 color: #f56c6c;
-		}
-		.bg{
-			font-size: 23px;
-			padding: 5px;
-			color: #f56c6c;
 
-		}
-		.text{
-			margin-left: 38px;
-			margin-top: -35px;
-		}
-		.text1{
-			margin-left: 38px;
-			font-size: 12px;
-		}
-		img{
-			width: 100px;
-			height: 100px;
-		}
-		.boxx{
-			width: 995px;
-			margin-left: -50px;
-			margin-top: -80px;
-		}
-		.col{
-			width: 250px;
-			height: 100px;
-			margin-left: 950px;
-			
-		}
-		.l-right{
-			margin-left: 210px;
-			margin-top: -65px;
-		}
-    .cont{
-      width: 90%;
-      margin: 0 auto;
-      /* height: 600px; */
-      display: flex;
-      margin-top: 100px;
-	  border: 1px solid #eee;
-     
-    }
-    .left{
-      flex: 0 0 80%;
-      height: 100%;
-    }
-    .right{
-      flex: 0 0 25%;
-      height: 100%;
-      margin-left: 15px;
-	  margin-top: 5px;
-      background-color: #FFFFFF;
-    }
-	 .btn-follow{
-	    color: #f56c6c;
-	    background: #fef0f0;
-	    border: #fbc4c4 solid;
-	    border-radius: 10px;
-	    padding: 10px 25px;
-	    text-align: center;
-	    font-size: 16px;
-	    -webkit-transform: scale(0.7);
-	  }
+	@font-face {
+		font-family: 'iconfont';
+		/* project id 1432498 */
+		src: url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.eot');
+		src: url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.eot?#iefix') format('embedded-opentype'),
+			url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.woff2') format('woff2'),
+			url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.woff') format('woff'),
+			url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.ttf') format('truetype'),
+			url('//at.alicdn.com/t/font_1432498_0bo9jnilz6s7.svg#iconfont') format('svg');
+	}
+
+	.iconfont {
+		color: #4CAF50;
+		font-family: "iconfont" !important;
+		font-size: 32px;
+		font-style: normal;
+		-webkit-font-smoothing: antialiased;
+		-webkit-text-stroke-width: 0.2px;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	.button1 {
+		position: relative;
+		/** 相对布局 **/
+	}
+
+	.button1:active {
+		top: 3px;
+		/**向下偏移2px **/
+		color: #f56c6c;
+	}
+
+	.bg {
+		font-size: 23px;
+		padding: 5px;
+		color: #f56c6c;
+
+	}
+
+	.text {
+		margin-left: 38px;
+		margin-top: -35px;
+	}
+
+	.text1 {
+		margin-left: 38px;
+		font-size: 12px;
+	}
+
+	img {
+		width: 100px;
+		height: 100px;
+	}
+
+	.boxx {
+		width: 995px;
+		margin-left: -50px;
+		margin-top: -80px;
+	}
+
+	.col {
+		width: 250px;
+		height: 100px;
+		margin-left: 950px;
+
+	}
+
+	.l-right {
+		margin-left: 210px;
+		margin-top: -65px;
+	}
+
+	.cont {
+		width: 90%;
+		margin: 0 auto;
+		/* height: 600px; */
+		display: flex;
+		margin-top: 100px;
+		border: 1px solid #eee;
+
+	}
+
+	.left {
+		flex: 0 0 80%;
+		height: 100%;
+	}
+
+	.right {
+		flex: 0 0 25%;
+		height: 100%;
+		margin-left: 15px;
+		margin-top: 5px;
+		background-color: #FFFFFF;
+	}
+
+	.btn-follow {
+		color: #f56c6c;
+		background: #fef0f0;
+		border: #fbc4c4 solid;
+		border-radius: 10px;
+		padding: 10px 25px;
+		text-align: center;
+		font-size: 16px;
+		-webkit-transform: scale(0.7);
+	}
+
 	.carousel-wrap {
 		position: relative;
 		height: 350px;
 		overflow: hidden;
-		
+
 	}
-	.tab{
+
+	.tab {
 		margin-left: 115px;
 	}
+
 	.slide-ul {
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	.slide-ul li {
 		position: absolute;
-		top:0;
-		left:0;
+		top: 0;
+		left: 0;
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	.slide-ul li img {
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	.carousel-items {
 		z-index: 100;
 		position: relative;
 		top: -25px;
 		text-align: center;
 		font-size: 0;
-		
-		
+
+
 	}
-	
+
 	.carousel-items span {
 		display: inline-block;
 		width: 6px;
@@ -313,29 +335,30 @@
 		cursor: pointer;
 		border-radius: 50%;
 	}
-	
+
 	.carousel-items .active {
 		background-color: #FFA500;
 	}
-	
+
 	/* 动画 */
 	.slide-enter-to {
 		transition: all 1s ease;
 		transform: translateX(0);
 	}
-	
+
 	.slide-leave-active {
 		transition: all 1s ease;
 		transform: translateX(-100%)
 	}
-	
+
 	.slide-enter {
 		transform: translateX(100%)
 	}
-	
+
 	.slide-leave {
 		transform: translateX(0)
 	}
+
 	.router-link-active {
 		background-color: rgb(240, 240, 240);
 	}
