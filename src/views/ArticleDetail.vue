@@ -13,14 +13,16 @@
 		</div>
 		<div v-html="articleVo.article.content"></div>
 		<hr/>
+		<p>精彩评论</p>
 			<div>
-					<textarea style="width: 600px; height: 100px ; margin-left: 80px;"  placeholder="写下你的评论" v-model="comment">{{comment}}</textarea>
-					<button style="width:40px" v-on:click="clicktext">发送</button>
+					<textarea style="width: 600px; height: 110px ; margin-left: 80px;"  placeholder="写下你的评论" v-model="comment">{{comment}}</textarea>
+					<button class="btn-botton " v-on:click="clicktext">发送</button>
 				</div>
-			<div>精彩评论</div>
+			
 			<div v-for="( data,index) in comment_content" :key='index' >
 				<div class="col-12 border cmtbox">
 					<div>{{data.name}}评论此文章：{{data.comment}}</div>
+					<button class="btn-botton"  v-on:click="deletecomment(data.id)">删除</button>
 				</div>
 			</div>
 	</div>
@@ -66,6 +68,17 @@ export default {
 	},
 	computed: {},
 	methods: {
+		deletecomment(index){
+			console.log(this.id)
+			this.axios.get(this.GLOBAL.baseUrl + '/delete/comment', {params: {article: this.id,
+					user:this.user_id,
+					id:index,
+				}
+			}).then(res => {
+			});
+			this.$router.go(0)
+
+		},
 		clicktext(){
 			console.log(this.comment)
 			this.axios.get(this.GLOBAL.baseUrl + '/add/comment', {params: {article: this.id,
@@ -76,7 +89,7 @@ export default {
 
 				this.comment="" ;
 			});
-			this.reload();
+			this.$router.go(0)
 		},
 		clicklike(){
 
@@ -102,6 +115,22 @@ export default {
 </script>
 
 <style scoped="scoped">
+
+
+.btn-botton {
+        width: 100px;
+	    color: #f56c6c;
+	    background: rgb(232, 181, 152,0.3);
+	    border: 1px solid rgb(232, 181, 152,0.3);
+	    border-radius: 5px;
+	    padding: 5px 20px;
+	    text-align: center;
+	    font-size: 18px;
+	
+	    -webkit-transform: scale(0.7);
+	  
+	
+}
 .box{
 	height: 50px;
 	line-height: 50px;
@@ -114,7 +143,7 @@ export default {
 	padding: 5px 0;
 	width: 80px;
 	height: 30px;
-	border-radius: 40px;
+	border-radius: 5px;
 	display: inline-block;
 	text-align: center;
 }

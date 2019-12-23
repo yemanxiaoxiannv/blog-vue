@@ -27,7 +27,6 @@
 						</p>
 						<p class="meta sub">{{ item.articles }}篇文章，{{ item.fans }}个粉丝</p>
 					</div>
-					
 				</div>
 				<div class="flex-center-y">
 					<li class="btn btn-follow" v-if="item.status" @click="changeThumbUps1(item)">关注</li>

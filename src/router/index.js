@@ -1,15 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Tab1 from '@/views/Tab1.vue'
-import Tab2 from '@/views/Tab2.vue'
-import Account from '@/views/Account.vue'
-import Topup from '@/views/Topup.vue'
-import Essay from '@/views/Essay.vue'
-import Dynamic from '@/views/Dynamic.vue'
-
-
-
 import Nav from '@/views/Nav.vue'
 import SignIn from '@/views/SignIn.vue'
 import SignUp from '@/views/SignUp.vue'
@@ -31,6 +22,13 @@ import SearchArticle from '@/views/SearchArticle.vue'
 import Basic from '@/views/Basic.vue'
 import Setting from '@/views/Setting.vue'
 import Empty from '@/views/Empty.vue'
+import Tab1  from '@/views/Tab1.vue'
+import Tab2  from '@/views/Tab2.vue'
+import Essay from '@/views/Essay.vue'
+import Dynamic from '@/views/Dynamic.vue'
+import Topup from '@/views/Topup.vue'
+import WriteArticle from "../views/WriteArticle/WriteArticle";
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -39,6 +37,14 @@ const routes = [{
 		children: [{
 				path: '/',
 				redirect: 'index'
+			},
+			{
+				path: 'write_article',
+				component: WriteArticle,
+			},
+			{
+				path:'topup',
+				component:Topup
 			},
 			{
 				path: 'index',
@@ -54,7 +60,7 @@ const routes = [{
 				{
 					path:'tab2',
 					component:Tab2
-				}
+				},
 				]
 			},
 			{
@@ -73,57 +79,53 @@ const routes = [{
 				path: 'topic/:id',
 				component: TopicDetail
 			},
-
 			{
 				path: 'users',
 				component: Users
 			},
 			{
-				path: 'user/:id',
+				path: 'user_detail/:id',
 				component: UserDetail,
-				children: [{
-						path: '/',
-						redirect: 'essay'
-					},
-					{
-						path: 'essay',
-						component: Essay
-					},
-					{
-						path: 'dynamic',
-						component: Dynamic
-					},
+				children:[
+				{
+					path:'/',
+					redirect:'essay'
+				},
+				{
+					path:'essay',
+					component:Essay
+				},
+				{
+					path:'dynamic',
+					component:Dynamic
+				},
 				]
-
 			},
 			{
-				path:'/account',
-				component:Account
+				path: 'setting/:userId',
+				component: Setting
 			},
 			{
-				path:'/topup',
-				component:Topup
-			},
-			{
-				path: 'search',
-				component: Search,
-				children: [{
-						path: '/',
-						redirect: 'article'
-					},
-					{
-						path: 'article',
-						component: SearchArticle
-					},
-					{
-						path: 'topic',
-						component: SearchTopic
-					},
-					{
-						path: 'user',
-						component: SearchUser
-					}
-				]
+					path :'search',
+					component:Search,
+					children:[
+						{
+							path: '/',
+							redirect: 'article'
+						},
+						{
+							path: 'article',
+							component: SearchArticle
+						},
+						{
+							path: 'topic',
+							component: SearchTopic
+						},
+						{
+							path: 'user',
+							component: SearchUser
+						}
+					]
 			},
 			{
 				path: 'empty',

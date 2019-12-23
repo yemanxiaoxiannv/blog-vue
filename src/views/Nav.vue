@@ -1,83 +1,91 @@
 <template>
-	<div>
-		<div class="nav primary-fill shadow">
-			<div class="nav-bar">
-				<ul class="nav-list flex-around">
-					<li class="nav-item">
-						<router-link to="/index">主页</router-link>
-					</li>
-					<li class="nav-item">
-						<router-link to="/topics">专题</router-link>
-					</li>
-					<li class="nav-item">
-						<router-link to="/articles">文章</router-link>
-					</li>
-					<li class="nav-item">
-						<router-link to="/users">作者</router-link>
-					</li>
-					<li class="nav-item"><input type="text" class="input-box" placeholder="搜索" v-model="keywords" /></li>
-					<li class="nav-item"><i class="iconfont" @click="search">&#xe89c;</i></li>
-					<li class="nav-item" v-if="!this.user">
-						<router-link to="/sign-in">登录</router-link>
-					</li>
-					<li v-if="this.user">
-						<div class="dropdown">
-							<div class="dropbtn"><img :src="user.avatar" @mouseenter="this.show = true" class="avatar-lg" /></div>
-							<div class="dropdown-content">
-								<router-link :to="{ path: '/user/' + user.id }">个人主页</router-link>
-								<router-link to="/Account">账号设置</router-link>
-								<router-link to="/Topup">VIP充值</router-link>
-							</div>
-						</div>
-					</li>
-                    <!-- <router-link :to="{ path: '/user/' + user.id }" v-if="this.user"><img :src="user.avatar" @mouseenter="this.show = true" class="avatar-xs abs-center-right" /></router-link> -->
-					<li class="nav-item" v-if="this.user">
-						
-							<a class="linka" @click="logout">退出</a>
-						
-					</li>
-				</ul>
-			</div>
-		</div>
-		<router-view class="container" />
-	</div>
+  <div>
+    <div class="nav primary-fill shadow">
+      <div class="nav-bar" >
+        <ul class="nav-list flex-around">
+          <li class="nav-item" >
+            <router-link to="/index" class="rud">主页</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/topics" class="rud">专题</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/articles" class="rud">文章</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/users" class="rud" >作者</router-link>
+          </li>
+          <li class="nav-item">
+            <input type="text" class="input-box" placeholder="搜索" v-model="keywords"/>
+          </li>
+          <li class="nav-item"><i class="iconfont" @click="search">&#xe89c;</i></li>
+          <li class="nav-item" v-if="!this.user">
+            <router-link to="/sign-in" class="rud" >登录</router-link>
+          </li>
+          <!--          <router-link :to="{ path: '/user/' + user.id }" v-if="this.user">-->
+          <!--            <img :src="user.avatar" @mouseenter="this.show = true" class="avatar-xs abs-center-right" />-->
+          <!--          </router-link>-->
+
+          <li v-if="this.user">
+            <el-dropdown @command="handleCommand" style="background-color: #009688;border: #009688">
+              <img :src="this.user.avatar" class="avatar-xs abs-center-right"/>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="a">个人主页</el-dropdown-item>
+                <el-dropdown-item command="c">发表文章</el-dropdown-item>
+                <el-dropdown-item command="b">账号设置</el-dropdown-item>
+				 <el-dropdown-item command="d">VIP设置</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </li>
+
+          <li class="nav-item" v-if="this.user"><a class="link" @click="logout">退出</a></li>
+        </ul>
+      </div>
+    </div>
+    <router-view class="container"/>
+  </div>
 </template>
 <script>
-	export default {
-		data() {
-			return {
-				user: JSON.parse(localStorage.getItem('user')),
-				keywords: ''
-			};
-		},
-		created() {},
-		methods: {
-			logout() {
-				this.user = null;
-				localStorage.clear();
-			},
-			search() {
-				let currentPath = this.$route.path;
-				alert(currentPath);
-				if (currentPath != '/search' || currentPath != '/search/article' || currentPath != '/search/topic' || currentPath !=
-					'/search/usere') {
-					this.$router.push({
-						path: '/search',
-						query: {
-							keywords: this.keywords
-						}
-					});
-				} else {
-					this.$router.push({
-						path: '/empty',
-						query: {
-							keywords: this.keywords
-						}
-					});
-				}
-			}
+  export default {
+    data() {
+      return {
+        user: JSON.parse(localStorage.getItem('user')),
+        keywords: ''
+      };
+    },
+    created() {
+    },
+    methods: {
+      logout() {
+        this.user = null;
+        localStorage.clear();
+      },
+      search() {
+        let currentPath = this.$route.path;
+        // alert(currentPath);
+        if (currentPath != '/search' || currentPath != '/search/article' || currentPath != '/search/topic' || currentPath != '/search/usere') {
+          this.$router.push({path: '/search', query: {keywords: this.keywords}});
+        } else {
+          this.$router.push({path: '/empty', query: {keywords: this.keywords}});
+        }
+      },
+      handleCommand(command) {
+        if (command === 'a') {
+          console.log(this.user.id)
+          this.$router.push({path: '/user_detail/' + this.user.id})
+        }
+        if (command === 'b') {
+          this.$router.push({path: '/setting/' + this.user.id})
+        }
+        if (command === 'c') {
+          this.$router.push({path: '/write_article/'})
+        }
+		if (command === 'd') {
+		  this.$router.push({path: '/topup/'})
 		}
-	};
+      }
+    }
+  };
 </script>
 <style scoped>
 	@font-face {
@@ -89,7 +97,7 @@
 	  url('//at.alicdn.com/t/font_1432498_dg9j63089r.ttf') format('truetype'),
 	  url('//at.alicdn.com/t/font_1432498_dg9j63089r.svg#iconfont') format('svg');
 	}
-
+	
 	.iconfont {
 		color: #000000;
 		font-family: "iconfont" !important;
@@ -98,58 +106,27 @@
 		-webkit-font-smoothing: antialiased;
 		-webkit-text-stroke-width: 0.2px;
 		-moz-osx-font-smoothing: grayscale;
-		margin-left: -80px;
+		margin-left: -70px;
 	}
+  /* 路由激活高亮样式 */
+  .router-link-active {
+    background-color: rgba(0, 0, 0, 0.35);
+    font-weight: 700;
+  }
+  .rud{
+    border-radius: 40px;
+  }
 
+  .container {
+    margin-top: 80px;
+  }
 
-	/* 路由激活高亮样式 */
-	.router-link-active {
-		background-color: rgba(0, 0, 0, 0.35);
-		font-weight: 700;
-	}
-	.linka{
-		margin-left: -80px;
-	}
+  .el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+  }
 
-	.container {
-		margin-top: 80px;
-		cursor: pointer;
-	}
-
-	.box {
-		margin-left: -60px;
-		background-color: #E0E0E0;
-	}
-
-	li a,
-	.dropbtn {
-		display: inline-block;
-		/*设置成块*/
-		color: white;
-		text-align: center;
-		text-decoration: none;
-	}
-	.dropdown {
-		/*display:inline-block将对象呈递为内联对象，但是对象的内容作为块对象呈递。旁边的内联对象会被呈递在同一行内，允许空格。*/
-		display: inline-block;
-	}
-	.dropdown-content {
-		display: none;
-		position: absolute;
-		background-color: #f9f9f9;
-		min-width: 140px;
-		box-shadow: rgba(0, 0, 0, 0.2);
-	}
-	.dropdown-content a {
-		display: block;
-		color: black;
-		padding: 10px 35px;
-		text-decoration: none;
-	}
-	.dropdown-content a:hover {
-		background-color: rgb(232, 181, 152,0.5);
-	}
-	.dropdown:hover .dropdown-content {
-		display: block;
-	}
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
 </style>

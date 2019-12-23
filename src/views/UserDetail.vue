@@ -1,190 +1,102 @@
 <template>
-	<div class="container">
-		<div class="banner flex flex-center"><img :src="userVo.user.banner" class="cover shadow" /></div>
-		<div class="info">
-			<img :src="userVo.user.avatar" class="avatar" />
-			<h2>{{ userVo.user.nickname }}</h2>
-			<p class="title-fans-left"> 写了{{userVo.user.articles}}篇文章  {{userVo.user.fans}}粉丝</p>
-			<p class="title-detail">{{ userVo.user.introduction.slice(0, 300) }}</p>
-			
-		</div >
-		
-		<div class="boxx">
-			<div class="l-left">
-		          <div class="tab">
-					 <ul> 
-				       <li>
-					     <router-link :to="{ path: '/user/'+userVo.user.id+'/essay'}">
-						      <p class="bg">文章</p>
-					     </router-link>
-					    </li>
-					</ul>
-		          </div>
-				  <div class="tab">
-					<ul>
-					   <li>
-					     <router-link :to="{ path: '/user/'+userVo.user.id+'/dynamic'}">
-						      <p class="bg">关注</p>
-					     </router-link>
-					    </li>
-					</ul>
-					</div>
-			</div>
-			<div class="l-right">
-				<router-view />
-			</div>
-		</div>
-	</div>
+  <div class="container">
+   <div class="banner flex flex-center"><img :src="userVo.user.banner" class="cover shadow" /></div>
+   <div class="info">
+   	<img :src="userVo.user.avatar" class="avatar" />
+   	<h2>{{ userVo.user.nickname }}</h2>
+   	<p class="title-fans-left"> 写了{{userVo.user.articles}}篇文章  {{userVo.user.fans}}粉丝</p>
+   	<p class="title-detail">{{ userVo.user.introduction.slice(0, 300) }}</p>
+   	
+   </div >
+     <div class="boxx">
+     	<div class="l-left">
+               <div class="tab">
+     			 <ul> 
+     		       <li>
+     			     <router-link :to="{ path: '/user_detail/'+userVo.user.id+'/essay'}">
+     				      <p class="bg">文章</p>
+     			     </router-link>
+     			    </li>
+     			</ul>
+               </div>
+     		  <div class="tab">
+     			<ul>
+     			   <li>
+     			     <router-link :to="{ path: '/user_detail/'+userVo.user.id+'/dynamic'}">
+     				      <p class="bg">关注</p>
+     			     </router-link>
+     			    </li>
+     			</ul>
+     			</div>
+     	</div>
+     	<div class="l-right">
+     		<router-view />
+     	</div>
+     </div>
+  </div>
 </template>
 
 <script>
-export default {
-	data() {
-		return {
-			userVo: {
-				user: {},
-				articleList: {},
-			
-			}
-		};
-	},
-	created() {
-		var id = this.$route.params.id;
-		this.axios.get(this.GLOBAL.baseUrl + '/user/' + id).then(res => {
-			console.log(res.data.data);
-			this.userVo = res.data.data;
-		});
-	},
-	methods: {
-		deleteUser:function(id,index){
-			alert(id+" " +index);
-			var param ={
-				id:id
-			}
-			var _this=this;
-			axios.delete('http://u2c7152733.zicp.vip/api/user',{
-				params:param
-			})
-			.then(function(response){
-				console.log(response.data.msg);
-				_this.users.splice(index,1);
-			})
-		},
-		
-		
-	}
-};
-</script>
-<style scoped="scoped">
+  export default {
 
+    data() {
+      return {
+        userVo: {
+          user: {},
+          articleList: []
+        }
+      };
+    },
+    created() {
+      var id = this.$route.params.id;
+      this.axios.get(this.GLOBAL.baseUrl + '/user/' + id).then(res => {
+        console.log(res.data.data);
+        this.userVo = res.data.data;
+      });
+    },
+    methods: {
+
+      clickdelete(index){
+        var id = this.$route.params.id;
+        this.axios.get(this.GLOBAL.baseUrl +'/article/delete' ,{params:{
+              user : id,
+            article:index ,
+          }}).then(res => {
+          console.log(res.data.data);
+          this.userVo = res.data.data;
+        });
+        this.$router.go(0)
+      },
+
+
+      showDetail(id) {
+        this.$router.push({path: '/article/' + id})
+      }
+    }
+  };
+</script>
+
+<style scoped="scoped">
 .bg{
-			font-size: 14px;
+			font-size: 15px;
 			padding: 5px;
-			color: #f56c6c;
+			color: #4E342E;
+			font-weight: 550;
 
 		}
 
 .l-right{
 			margin-left: 180px;
-			margin-top: -115px;
+			margin-top: -110px;
 		}
 
 .boxx{
 			width: 80%;
 			margin-left: 80px;
-			margin-top: 30px;
+			margin-top: 40px;
 		}
 .tab{
 	margin-left: 120px;
-}
-
-.banner {
-	width: 100%;
-	height: 280px;
-}
-.cover {
-	width: 85%;
-	height: 90%;
-	border-radius: 20px;
-}
-.info {
-	position: relative;
-	top: -60px;
-	left: 0px;
-	margin-bottom: -50px;
-	text-align: center;
-	border-radius: 20px;
-}
-.info img {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	border: 2px solid #fff;
-	
-}
-.row{
-	margin-left: 140px;
-}
-ul {
-	width: 100%;
-}
-li {
-	width: 100%;
-	margin-bottom: 10px;
-	border-radius: 5px;
-}
-li a {
-	display: block;
-	color: rgb(51, 51, 51);
-	height: 45px;
-	width: 12%;
-	margin-left: -25px;
-	padding-top: 10px;
-	padding-left: 30px;
-}
-li a:hover {
-	background-color: rgb(240, 250, 250);
-}
-.router-link-active {
-	background-color: rgb(250, 250, 250);
-}
-.btn-follow {
-	background-color: rgb(232, 181, 152);
-	font-weight: 400;
-	font-size: 15px;
-	color: #fff;
-	padding: 5px 0;
-	width: 120px;
-	height: 30px;
-	border-radius: 10px;
-	display: inline-block;
-	text-align: center;
-	border: none;
-	outline: none;
-	box-shadow: 2px 2px 5px #aaa; 
-	margin-top: 10px;
-	margin-bottom: 5px;
-}
-.btn-botton {
-        width: 100px;
-	    color: #f56c6c;
-	    background: rgb(232, 181, 152,0.3);
-	    border: 3px solid rgb(232, 181, 152,0.3);
-	    border-radius: 10px;
-	    padding: 10px 25px;
-	    text-align: center;
-	    font-size: 16px;
-		margin-top: -5px;
-	    -webkit-transform: scale(0.7);
-	  
-	
-}
-.sub-tit{
-	margin-left: 380px;
-	margin-top: -20px;
-}
-.tit{
-	padding-top: 55px;
 }
 .title-detail{
 	font-size: 12px;
@@ -199,15 +111,72 @@ li a:hover {
 	margin-left: 0px;
 	word-spacing: 15px;
 }
-.item{
-	margin-top:15px ;
+  .btn-botton {
+          width: 100px;
+		  height: 50px;
+  	    color: #f56c6c;
+  	    background: rgb(232, 181, 152,0.3);
+  	    border: 1px solid rgb(232, 181, 152,0.3);
+  	    border-radius: 5px;
+  	    padding: 10px 25px;
+  	    text-align: center;
+  	    font-size: 16px;
+  		margin-top: 120px;
+  	    -webkit-transform: scale(0.7);
+  	  
+  	
+  }
+  .banner {
+    width: 100%;
+    height: 300px;
+  }
+
+  .cover {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+
+ .info {
+ 	position: relative;
+ 	top: -60px;
+ 	left: 0px;
+ 	margin-bottom: -50px;
+ 	text-align: center;
+ 	border-radius: 20px;
+ }
+.info img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	
 }
-/*动画效果*/
-			.fade-enter-active, .fade-leave-avtive{
-				transition: opacity 1s;
-				
-			}
-			.fade-enter, .fade-leave-to{
-				opacity: 0;
-			}
+
+  .row {
+    margin-top: -50px;
+  }
+ ul {
+ 	width: 100%;
+ }
+ li {
+ 	width: 100%;
+ 	margin-bottom: 10px;
+ 	border-radius: 5px;
+ }
+ li a {
+ 	display: block;
+ 	color: rgb(51, 51, 51);
+ 	height: 45px;
+ 	width: 11%;
+ 	margin-left: -25px;
+ 	padding-top: 10px;
+ 	padding-left: 30px;
+ }
+ li a:hover {
+ 	background-color: rgb(240, 250, 250);
+ }
+ .router-link-active {
+ 	background-color: rgb(250, 250, 250);
+ }
 </style>

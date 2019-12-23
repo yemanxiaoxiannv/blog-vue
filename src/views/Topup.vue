@@ -5,7 +5,6 @@
 			<div  class="col-3">
 				<div class="card shadow">
 					<p class="tit1">连续包月首月</p>
-					
 					<i class="iconfont">&#xe62e;</i>
 					<span class="tet">12</span>
 					<p class="tit2">之后15元/月续费，可随时关闭</p>
@@ -28,6 +27,7 @@
 					<span class="tet">118</span>
 					<p class="tit2">之后178元/年续费，可随时关闭</p>
 				</div>
+				<div class="icon">首年118元</div>
 			</div>
 			<div  class="col-3">
 				<div class="card shadow">
@@ -37,9 +37,29 @@
 					<span class="tet">128</span>
 					<p class="tit2">原价198元</p>
 				</div>
+				<div class="icon">限时特惠</div>
 			</div>
 		</div>
-		
+		<h2>VIP+特权</h2>
+		<div class="row">
+		<div  class="col-3">
+			<div class="card shadow">
+				
+			</div>
+		</div>
+		<div  class="col-3">
+			<div class="card shadow">
+			</div>
+		</div>
+		<div  class="col-3">
+			<div class="card shadow">
+			</div>
+		</div>
+		<div  class="col-3">
+			<div class="card shadow">
+			</div>
+		</div>
+		</div>
 	</div>
 </template>
 
@@ -78,12 +98,15 @@
 		color: rgb(232, 181, 152);
 	}
 	.icon{
-		border: 1px solid #000000;
-			height: 25px;
-			width: 75px;
-			text-align: center;		
-			border-bottom-left-radius: 15px;
-			border-top-right-radius: 15px;
+		height: 25px;
+		width: 75px;
+		font-size: 15px;
+		text-align: center;
+		margin-top: -180px;
+		margin-left: 8px;
+		background-color: rgb(239, 108, 0,0.5);
+		border-bottom-left-radius: 15px;
+		/* border-top-right-radius: 10px; */
 	}
 	.tet{
 		font-size: 32px;
@@ -96,7 +119,9 @@
 	}
 	.tit2{
 		text-align: center;
+		margin-top: 10px;
 		color: #555555;
+		
 	}
 	.card {
 		width: 85%;

@@ -13,7 +13,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row"><button class="btn btn-lg warning-fill" @click="loadMore">点击加载更多</button></div>
+				<div class="row"><button class="btn btn-lg btn-rd dark-fill" @click="loadMore">点击加载更多</button></div>
 
 	</div>
 </template>

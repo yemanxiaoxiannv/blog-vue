@@ -1,22 +1,21 @@
 <template>
 	<div>
 	<div class="col-8">
-		<div class="col-12" v-for="(item, index) in userVo.articleList" :key="index">
-			<div class="media-wraaper shadow">
-				<div class="media-left"><img :src="item.article.thumbnail" class="thumnail-xs" /></div>
-				<div class="media-middle">
-					<p class="title">{{ item.article.title }}</p>
-					<p class="sub-title">{{ item.article.summary }}</p>
-					<p class="tit">
-						<span class="meta gutter ">{{ item.article.comments }}评论</span>
-						<span class="meta gutter">{{ item.article.likes }}喜欢</span>
-						<span class="meta ">{{ item.article.createTime.date.year }}年{{ item.article.createTime.date.month }}月{{ item.article.createTime.date.day }}日</span>
-					</p>
-					<p class="sub-tit"><button class="btn btn-botton" @click="deleteUser(item.id,index)">删除</button></p>
-				</div>
-			</div>
-		</div>
+	  <div class="col-12" v-for="(item, index) in userVo.articleList" :key="index">
+	    <div class="media-wraaper shadow" @click="showDetail(item.article.id)">
+	      <div class="media-left">
+	        <img :src="item.article.thumbnail" class="thumnail-xs"/>
+	      </div>
+	      <div class="media-middle">
+	        <p class="title">{{ item.article.title }}</p>
+	        <p class="sub-title">{{ item.article.summary }}</p>
+	      </div>
+	      <button @click.stop="clickdelete(item.article.id)" class="btn-botton">刪除</button>
+	    </div>
+	
+	  </div>
 	</div>
+	
 	</div>
 </template>
 
@@ -39,23 +38,24 @@ export default {
 		});
 	},
 	methods: {
-		deleteUser:function(id,index){
-			alert(id+" " +index);
-			var param ={
-				id:id
-			}
-			var _this=this;
-			axios.delete('http://u2c7152733.zicp.vip/api/user',{
-				params:param
-			})
-			.then(function(response){
-				console.log(response.data.msg);
-				_this.users.splice(index,1);
-			})
-		},
+		delect(articleid) {
+						this.axios({
+							method: 'delete',
+							url: this.GLOBAL.baseUrl + '/article/' + articleid,
+							data: JSON.stringify(articleid),
+						}).then(res => {
+							if (res.data.msg === '成功') {
 		
-		
+								alert('删除成功');
+								this.reload();
+								this.$router.push('/personal/' + user.id);
+							} else {
+								alert(res.data.msg);
+							}
+						});
+					}
 	}
+
 };
 </script>
 
@@ -79,6 +79,7 @@ export default {
 }
 .btn-botton {
         width: 100px;
+		height: 50px;
 	    color: #f56c6c;
 	    background: rgb(232, 181, 152,0.3);
 	    border: 3px solid rgb(232, 181, 152,0.3);
@@ -86,7 +87,7 @@ export default {
 	    padding: 10px 25px;
 	    text-align: center;
 	    font-size: 16px;
-		margin-top: -5px;
+		margin-top: 120px;
 	    -webkit-transform: scale(0.7);
 	  
 	

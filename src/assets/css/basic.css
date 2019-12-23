@@ -38,8 +38,6 @@ a:visited,
 a:hover,
 a:active {
 	text-decoration: none;
-	
-	
 }
 
 /* 浮动方式 */
@@ -175,8 +173,6 @@ a:active {
 .container {
 	width: 80%;
 	margin: 0 auto;
-	
-	
 }
 
 /* 栅格 */
@@ -260,7 +256,6 @@ a:active {
 /* 链接样式 */
 .link {
 	cursor: pointer;
-	
 }
 
 /* 间距 */

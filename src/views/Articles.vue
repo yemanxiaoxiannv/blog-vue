@@ -1,9 +1,13 @@
-
 <template>
 	<div class="row">
-		<div v-for="(item, index) in articles" :key="index" class="col-6">
+		<div v-for="(item, index) in articles" :key="index" class="col-12">
 			<div class="media-wraaper bg shadow">
-				
+				<div class="media-left">
+					<img :src="item.author.avatar" class="avatar-lg link" />
+					<p>{{ item.author.nickname }}</p>
+					<strong>来自</strong>
+					<p>{{ item.topic.topicName }}</p>
+				</div>
 				<div class="media-middle flex flex-left">
 					<router-link :to="{ path: '/article/' + item.article.id }">
 						<p>
@@ -73,7 +77,7 @@ export default {
 
 <style scoped="scoped">
 .bg {
-	
+	background-image: url(../assets/img/article.png);
 	background-size: contain;
 	background-position-y: 100px;
 }

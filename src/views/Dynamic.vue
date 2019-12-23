@@ -7,7 +7,7 @@
 				</div>
 				<div class="media-middle ">
 					<router-link :to="{ path: '/article/' + item.article.id }">
-						<p>
+						<p class="tit">
 							<span>{{ item.article.id }}</span>
 							{{ item.article.title }}
 						</p>
@@ -73,5 +73,7 @@ export default {
 </script>
 
 <style scoped="scoped">
-
+.tit{
+	color: #E57373;
+}
 </style>
