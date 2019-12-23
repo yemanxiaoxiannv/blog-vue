@@ -46,7 +46,7 @@
 						<div v-for="(item, index) in users" :key="index" class="row">
 							<div class="col-12 border box">
 								<div class="flex-center-y">
-									<router-link :to="{ path: '/user/' + item.id }">
+									<router-link :to="{ path: '/user_detail/' + item.id }">
 									<img :src="item.avatar" class="avatar" />
 									</router-link>
 									<p class="sub-title">{{ item.nickname }}</p>
@@ -271,9 +271,9 @@ export default {
     }
 .carousel-wrap {
 		position: relative;
-		height: 350px;
+		height: 400px;
 		overflow: hidden;
-		border: 1px solid #000000;
+		
 		
 	}
 	.tab{
