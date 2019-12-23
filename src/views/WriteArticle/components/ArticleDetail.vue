@@ -58,7 +58,7 @@
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将封面拖到此处，或<em>点击上传</em></div>
       </el-upload>
-      <el-button @click="submitForm">发布文章</el-button>
+      <el-button @click="submitForm" class="btn-botton">发布文章</el-button>
     </el-form>
   </div>
 </template>
@@ -86,7 +86,6 @@
           title: '',
           summary: '',
           thumbnail: '',
-          content: `<p></p><p><br></p><ol><li><strong><em>Or drag/paste an image here.</em></strong></li><li><strong><em>rerew</em></strong></li><li><strong><em>rtrete</em></strong></li><li><strong><em>tytrytr</em></strong></li><li><strong><em>uytu</em></strong></li></ol>`
         },
         editorOption: {},
         topic_list: [
@@ -155,6 +154,22 @@
 </script>
 
 <style scoped>
+	.btn-botton {
+		        width: 100px;
+				  height: 50px;
+			    color: #f56c6c;
+			    background: rgb(232, 181, 152,0.3);
+			    border: 1px solid rgb(232, 181, 152,0.3);
+			    border-radius: 5px;
+			    padding: 10px 25px;
+			    text-align: center;
+			    font-size: 16px;
+				margin-left: -13px;
+			    -webkit-transform: scale(0.7);
+			  
+			
+		}
+
   .form-container {
     margin-top: 50px;
   }

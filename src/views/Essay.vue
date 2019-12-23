@@ -38,22 +38,23 @@ export default {
 		});
 	},
 	methods: {
-		delect(articleid) {
-						this.axios({
-							method: 'delete',
-							url: this.GLOBAL.baseUrl + '/article/' + articleid,
-							data: JSON.stringify(articleid),
-						}).then(res => {
-							if (res.data.msg === '成功') {
+		clickdelete(index){
+				        var id = this.$route.params.id;
+				        this.axios.get(this.GLOBAL.baseUrl +'/article/delete' ,{params:{
+				              user : id,
+				            article:index ,
+				          }}).then(res => {
+				          console.log(res.data.data);
+				          this.userVo = res.data.data;
+				        });
+				        this.$router.go(0)
+				      },
+				
+				
+				      showDetail(id) {
+				        this.$router.push({path: '/article/' + id})
+				      }
 		
-								alert('删除成功');
-								this.reload();
-								this.$router.push('/personal/' + user.id);
-							} else {
-								alert(res.data.msg);
-							}
-						});
-					}
 	}
 
 };
